@@ -8,6 +8,7 @@ import Home from './pages/Home'
 import Contact from './pages/Contact'
 import About from './pages/About'
 import GlobalStyle from './GlobalStyles'
+import Products from './pages/Products'
 
 
 const router = createBrowserRouter([
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
         {
           path: "/About",
           element: <About/>
+        },
+        {
+          path: "/Products/:category",
+          element: <Products/>
         }
      ]
    }
