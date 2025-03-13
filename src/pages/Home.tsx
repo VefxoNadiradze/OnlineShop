@@ -1,10 +1,12 @@
 import { styled } from 'styled-components'
 import Categories from '../components/Categories'
+import TopSlider from '../components/TopSlider'
 
 export default function Home() {
   return (
     <CategoryCarousel>
       <Categories/>
+      <TopSlider/>
     </CategoryCarousel>
   )
 }
