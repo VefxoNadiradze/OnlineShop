@@ -14,5 +14,5 @@ export default function Home() {
 const CategoryCarousel = styled.div`
    display: flex;
    align-items: center;
-   justify-content: space-between;
+   justify-content: space-around;
 `

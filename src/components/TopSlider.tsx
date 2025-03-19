@@ -1,19 +1,12 @@
-import { Swiper, SwiperSlide } from "swiper/react";
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination'
-
-
-import { AppDispatch, RootState } from "../redux/store";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
+import { AppDispatch, RootState } from "../redux/store";
+import { useEffect, useState } from "react";
 import { fetchProducts } from "../redux/Data";
 import styled from "styled-components";
-import { A11y, Navigation, Pagination, Scrollbar } from "swiper/modules";
+import { FaArrowRight, FaArrowLeft } from "react-icons/fa";
+import { motion, AnimatePresence } from "framer-motion";
 
-
-
-export default function TopSlider() {
+function TopSlider() {
   const { products } = useSelector((state: RootState) => state.data);
   const dispatch = useDispatch<AppDispatch>();
 
@@ -21,47 +14,92 @@ export default function TopSlider() {
     dispatch(fetchProducts());
   }, [dispatch]);
 
-  let filteredProducts = products.filter(product => product.id > 90 && product.id < 98)
-  return (
-    <SwiperContainer>
-      <Swiper
-    modules={[Navigation, Pagination, Scrollbar, A11y]}
-    spaceBetween={50}
-    slidesPerView={1}
-    navigation
-    pagination={{ clickable: true }}
-    scrollbar={{ draggable: true }}
-    onSwiper={(swiper) => console.log(swiper)}
-    onSlideChange={() => console.log('slide change')}
+  let filteredProduct = products.filter(item => item.id > 90 && item.id <= 100);
+  const [currentIndex, setCurrentIndex] = useState<number>(0);
 
-      >
-        {filteredProducts.map((product) => (
-          <Slide key={product.id}>
-            <Image src={product.images[0]} alt="product image" />
-          </Slide>
-        ))}
-      </Swiper>
-    </SwiperContainer>
+  const handleRight = () => {
+    if (currentIndex < filteredProduct.length - 1) {
+      setCurrentIndex(currentIndex + 1);
+    }
+  };
+
+  const handleLeft = () => {
+    if (currentIndex > 0) {
+      setCurrentIndex(currentIndex - 1);
+    }
+  };
+
+  return (
+    <>
+      <SliderPar>
+        <AnimatePresence mode="wait">
+          {filteredProduct.map((item, index) => {
+            return (
+              currentIndex === index && (
+                <motion.div
+                  key={item.id}
+                  className="slider"
+                  initial={{ opacity: 0, x: 50 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -50 }}
+                  transition={{ duration: 0.5 }}
+                >
+                  <img src={item.images[0]} alt="product image" />
+                </motion.div>
+              )
+            );
+          })}
+        </AnimatePresence>
+
+        <button className="left" onClick={handleLeft}>
+          <FaArrowLeft />
+        </button>
+        <button className="right" onClick={handleRight}>
+          <FaArrowRight />
+        </button>
+      </SliderPar>
+    </>
   );
 }
 
-
-const SwiperContainer = styled.div`
-  width: 100%;
-  max-width: 800px; 
-  margin: auto;
+const SliderPar = styled.div`
+  position: relative;
+  width: 70%;
+  height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   overflow: hidden;
 
+  .slider {
+    width: 50%;
+    height: 100%;
+    position: absolute;
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  button {
+    background-color: transparent;
+    font-size: 23px;
+    border: none;
+    cursor: pointer;
+    position: absolute;
+  }
+
+  .left {
+    top: 50%;
+    left: 10px;
+    transform: translateY(-50%);
+  }
+  
+  .right {
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+  }
 `;
 
-const Slide = styled(SwiperSlide)`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-const Image = styled.img`
-  width: 100%;
-  height: 450px; 
-  object-fit: contain; 
-  border-radius: 10px;
-`;
+export default TopSlider;
