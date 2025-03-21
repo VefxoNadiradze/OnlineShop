@@ -14,7 +14,7 @@ function TopSlider() {
     dispatch(fetchProducts());
   }, [dispatch]);
 
-  let filteredProduct = products.filter(item => item.id > 90 && item.id <= 100);
+  let filteredProduct = products.filter(item => item.id > 90 && item.id <= 95);
   const [currentIndex, setCurrentIndex] = useState<number>(0);
 
   const handleRight = () => {
@@ -29,6 +29,10 @@ function TopSlider() {
     }
   };
 
+  const handlePagination = (index:number) => {
+      setCurrentIndex(index)
+  }
+
   return (
     <>
       <SliderPar>
@@ -36,6 +40,7 @@ function TopSlider() {
           {filteredProduct.map((item, index) => {
             return (
               currentIndex === index && (
+
                 <motion.div
                   key={item.id}
                   className="slider"
@@ -45,9 +50,13 @@ function TopSlider() {
                   transition={{ duration: 0.5 }}
                 >
                   <img src={item.images[0]} alt="product image" />
+
+
                 </motion.div>
               )
+
             );
+            
           })}
         </AnimatePresence>
 
@@ -57,10 +66,43 @@ function TopSlider() {
         <button className="right" onClick={handleRight}>
           <FaArrowRight />
         </button>
+
+        <PaginationPar>
+            {
+              filteredProduct.map((item,index) => {
+                 return <span  key={item.id} onClick={() => handlePagination(index)} className={currentIndex === index ? "active" : ''}></span>
+              })
+            }
+        </PaginationPar>
       </SliderPar>
     </>
   );
 }
+
+
+const PaginationPar = styled.div`
+   position: absolute;
+
+   display: flex;
+   gap: 10px;
+   align-items: center;
+   justify-content: center;
+   height: 10px;
+   bottom: 0;
+
+   span{
+    height: 6px;
+    width: 6px;
+    border-radius: 5px;
+    background-color: black;
+    cursor: pointer;
+   }
+
+   .active{
+    background-color: #949494;
+    outline: 2px solid #949494 ;
+   }
+`
 
 const SliderPar = styled.div`
   position: relative;
