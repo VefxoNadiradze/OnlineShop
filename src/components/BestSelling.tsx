@@ -4,6 +4,7 @@ import styled from "styled-components"
 import { AppDispatch, RootState } from "../redux/store";
 import { useEffect } from "react";
 import { fetchProducts } from "../redux/Data";
+import { FaStar } from "react-icons/fa";
 
 export default function BestSelling() {
    const { products } = useSelector((state: RootState) => state.data);
@@ -14,6 +15,10 @@ export default function BestSelling() {
      }, [dispatch]);
 
   let filterBestSellingProducts = products.filter(item => item.id > 10 && item.id <= 15);
+
+  const starsArr = [<FaStar />,<FaStar />,<FaStar />,<FaStar />,<FaStar /> ]
+
+
 
   return (
    <>
@@ -35,6 +40,15 @@ export default function BestSelling() {
                       <p className="title">{item.title}</p>
                       <p className="price">$ <span>{Math.round(item.price)}</span></p>
 
+                     <div className="starsParent">
+                      {
+                        starsArr.map((star,index) => {
+                           return <span className={index <  item.rating ? "yellow" : "stars"}>{star}</span>
+                        })
+                      }
+                      </div>
+               
+
                    </div>
                </div>
             })
@@ -43,6 +57,8 @@ export default function BestSelling() {
      </>
   )
 }
+
+
 
 
 const SellingHeader = styled.div`
@@ -94,5 +110,15 @@ const BestSellingProducts = styled.div`
     font-size: 14px;
     font-family: "Poppins", sans-serif;
     font-weight: 500;
+
+
+
+    .starsParent{
+      display: flex;
+      gap: 10px;
+       .yellow{
+           color: rgb(255, 173, 51);;
+       }
+   }
   }
 `
