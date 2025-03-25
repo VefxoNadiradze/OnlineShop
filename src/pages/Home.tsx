@@ -2,6 +2,7 @@ import { styled } from 'styled-components'
 import Categories from '../components/Categories'
 import TopSlider from '../components/TopSlider'
 import BestSelling from '../components/BestSelling'
+import Temporary from '../components/Temporary'
 
 export default function Home() {
   return (
@@ -11,6 +12,7 @@ export default function Home() {
       <TopSlider/>
     </CategoryCarousel>
       <BestSelling/>
+      <Temporary/>
       </>
   )
 }
