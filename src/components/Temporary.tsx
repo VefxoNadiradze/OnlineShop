@@ -51,6 +51,7 @@ const TemporaryPar = styled.div`
     padding: 69px 0 69px 59px;
     margin-top: 140px;
     background: rgb(0, 0, 0);
+    border-radius: 5px;
 
     .description{
         p{
