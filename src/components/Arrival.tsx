@@ -4,6 +4,11 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../redux/store";
 import { Link } from "react-router-dom";
+import serviceBackground  from "/Ellipse 5.png"
+import { CiDeliveryTruck } from "react-icons/ci";
+import { RiCustomerServiceLine } from "react-icons/ri";
+import { SiAdguard } from "react-icons/si";
+
 
 export default function Arrival() {
   const { products } = useSelector((state: RootState) => state.data);
@@ -35,12 +40,99 @@ let filterBestSellingProducts = products.filter(item =>  item.id > 78 && item.id
         })
       }
     </ArrivalPar>
+
+   
+    <Services>
+       <div className="serviceCard">
+            <div className="serviceIconPar">
+               <img src={serviceBackground} alt="" />
+                <span className="icon"><CiDeliveryTruck/></span>
+             </div>
+
+             <div className="serviceDescription">
+                 <h3>FREE AND FAST DELIVERY</h3>
+                 <p>Free delivery for all orders over $140</p>
+             </div>
+       </div>
+
+       <div className="serviceCard">
+            <div className="serviceIconPar">
+               <img src={serviceBackground} alt="" />
+                <span className="icon"><RiCustomerServiceLine/></span>
+             </div>
+
+             <div className="serviceDescription">
+                 <h3>24/7 CUSTOMER SERVICE</h3>
+                 <p>Friendly 24/7 customer support</p>
+             </div>
+       </div>
+
+       <div className="serviceCard">
+            <div className="serviceIconPar">
+               <img src={serviceBackground} alt="" />
+                <span className="icon"><SiAdguard/></span>
+             </div>
+
+             <div className="serviceDescription">
+                 <h3>MONEY BACK GUARANTEE</h3>
+                 <p>We reurn money within 30 days</p>
+             </div>
+       </div>
+    </Services>
       
   </>
    
   )
 }
 
+
+const Services = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 140px;
+
+    .serviceCard{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      .serviceIconPar{
+           position: relative;
+
+           .icon{
+             position: absolute;
+             top: 50%;
+             left: 50%;
+             transform: translate(-50%,-50%);
+             color: white;
+             font-size: 25px;
+           }
+      }
+
+      .serviceDescription{
+        margin-top: 25px;
+        text-align: center;
+
+        h3{
+         color: rgb(0, 0, 0);
+         font-family: "Poppins", sans-serif;
+         font-size: 20px;
+         font-weight: 600;
+         line-height: 28px;
+        }
+
+        p{
+           color: rgb(0, 0, 0);
+           font-family: "Poppins", sans-serif;
+           font-size: 14px;
+            font-weight: 400;
+            line-height: 21px;
+        }
+      }
+
+    }
+` 
 
 
 const ArrivalHeader = styled.div`
