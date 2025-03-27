@@ -4,6 +4,7 @@ import TopSlider from '../components/TopSlider'
 import BestSelling from '../components/BestSelling'
 import Temporary from '../components/Temporary'
 import Explore from '../components/Explore'
+import Arrival from '../components/Arrival'
 
 export default function Home() {
   return (
@@ -15,6 +16,7 @@ export default function Home() {
       <BestSelling/>
       <Temporary/>
       <Explore/>
+      <Arrival/>
       </>
   )
 }
