@@ -53,8 +53,8 @@ const HeaderStyles = styled.header`
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding: 24px 0;
         border-bottom:  0.5px solid rgb(0, 0, 0);
+        padding: 24px 135px;
 
         nav{
             display: flex;
