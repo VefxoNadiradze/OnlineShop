@@ -5,6 +5,7 @@ import { AppDispatch, RootState } from "../redux/store";
 import styled from "styled-components";
 import { FaStar } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { MdOutlineShoppingCart } from "react-icons/md";
 
 export default function Explore() {
   const { products } = useSelector((state: RootState) => state.data);
@@ -33,6 +34,11 @@ export default function Explore() {
                 <Link to={`/Item/${item.id}`}>
                   <img src={item.images[0]} alt="" />
                 </Link>
+
+                <AddCartBtn className="cartBtn">
+                  {" "}
+                  <MdOutlineShoppingCart /> Add To Cart
+                </AddCartBtn>
               </div>
 
               <div className="description">
@@ -97,12 +103,18 @@ const ExplorePar = styled.div`
   margin-top: 60px;
 
   .imgPar {
+    position: relative;
     background: rgb(245, 245, 245);
     border-radius: 5px;
     width: 100%;
+    overflow: hidden;
 
     img {
       width: 100%;
+    }
+
+    &:hover .cartBtn {
+      bottom: 0;
     }
   }
 
@@ -122,5 +134,28 @@ const ExplorePar = styled.div`
         color: rgb(255, 173, 51);
       }
     }
+  }
+`;
+
+const AddCartBtn = styled.button`
+  position: absolute;
+  bottom: -100%;
+  left: 0;
+  transition: 0.5s ease;
+  width: 100%;
+  border-radius: 0px 0px 4px 4px;
+  background: rgb(0, 0, 0);
+  height: 41px;
+  color: rgb(255, 255, 255);
+  font-family: "Poppins", sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 18px;
+  cursor: pointer;
+  border: none;
+
+  &:hover {
+    color: rgb(0, 0, 0);
+    background: rgb(255, 255, 255);
   }
 `;
