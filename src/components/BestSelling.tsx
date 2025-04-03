@@ -31,8 +31,9 @@ export default function BestSelling() {
      <BestSellingProducts>
          {
             filterBestSellingProducts.map(item => {
-               return <div key={item.id}>
+               return  <div key={item.id}>
                    <div className="imgPar">
+                     
                     <Link to={`/Item/${item.id}`}>
                        <img src={item.images[0]} alt="" />
                     </Link>
