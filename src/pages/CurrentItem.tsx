@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../redux/store";
 import styled from "styled-components";
 import { IoHeartOutline } from "react-icons/io5";
+import { MdOutlineShoppingCart } from "react-icons/md";
 
 export default function CurrentItem() {
   const { id } = useParams();
@@ -50,7 +51,7 @@ export default function CurrentItem() {
             <button>+</button>
           </div>
 
-          <button className="addCart">Buy Now</button>
+          <button className="addCart"> <MdOutlineShoppingCart /> Add To Cart</button>
 
           <button className="wishlistBtn">
             <IoHeartOutline />

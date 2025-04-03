@@ -10,6 +10,7 @@ import About from './pages/About'
 import GlobalStyle from './GlobalStyles'
 import Products from './pages/Products'
 import CurrentItem from './pages/CurrentItem'
+import Cart from './pages/Cart'
 
 
 const router = createBrowserRouter([
@@ -36,6 +37,10 @@ const router = createBrowserRouter([
         {
           path: "/Item/:id",
           element: <CurrentItem/>
+        },
+        {
+          path: "/Cart",
+          element: <Cart/>
         }
      ]
    }

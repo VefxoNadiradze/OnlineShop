@@ -36,7 +36,7 @@ export default function Explore() {
                 </Link>
 
                 <AddCartBtn className="cartBtn">
-                  {" "}
+
                   <MdOutlineShoppingCart /> Add To Cart
                 </AddCartBtn>
               </div>
