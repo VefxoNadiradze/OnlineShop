@@ -28,7 +28,7 @@ let filterBestSellingProducts = products.filter(item =>  item.id > 78 && item.id
     <ArrivalPar>
       {
         filterBestSellingProducts.map(item => {
-          return <div className="arrivalItem">
+          return <div key={item.id} className="arrivalItem">
               <div className="arrivalDescription">
                  <h3>{item.title}</h3>
                  <p>{item.description}</p>

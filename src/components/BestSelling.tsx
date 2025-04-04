@@ -59,7 +59,7 @@ export default function BestSelling() {
                 <div className="starsParent">
                   {starsArr.map((star, index) => {
                     return (
-                      <span
+                      <span key={index}
                         className={index < item.rating ? "yellow" : "stars"}
                       >
                         {star}

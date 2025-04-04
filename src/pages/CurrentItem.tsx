@@ -24,9 +24,9 @@ export default function CurrentItem() {
     <ItemParent>
       <div className="itemImages">
         <div className="smallImagesPar">
-          {item?.images.map((smallImg) => {
+          {item?.images.map((smallImg, index) => {
             return (
-              <div onClick={() => setCurrentImg(smallImg)} className="smallImage">
+              <div key={index} onClick={() => setCurrentImg(smallImg)} className="smallImage">
                 <img  src={smallImg} alt="" />
               </div>
             );

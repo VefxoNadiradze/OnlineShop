@@ -20,7 +20,7 @@ export default function Categories() {
     <CategoriesDiv>
         {
             uniqueCategories.map((category,index) => {
-                return <Link to={`/Products/${category}`} key={index}>{category}</Link>
+                return <Link  to={`/Products/${category}`} key={index}>{category}</Link>
             })
         }
     </CategoriesDiv>
