@@ -1,16 +1,10 @@
-import { useDispatch, useSelector } from "react-redux";
+import {  useSelector } from "react-redux";
 import styled from "styled-components";
 import { RootState } from "../redux/store";
-import { decrement, increment } from "../redux/quantity";
+
 
 export default function Cart() {
   const cartItems = useSelector((state: RootState) => state.cartData);
-  const quantityValue = useSelector((state: RootState) => state.quantity)
-  const dispatch  = useDispatch()
-
-
-
-
   return (
     <CartParent>
       <div className="titles">
@@ -40,7 +34,7 @@ export default function Cart() {
             </form>
 
             <p className="subtotal">
-              $<span>{Math.round(item.price) * quantityValue}</span>
+              $<span>{Math.round(item.price)}</span>
             </p>
           </div>
         );
