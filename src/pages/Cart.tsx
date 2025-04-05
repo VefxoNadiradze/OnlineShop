@@ -1,10 +1,11 @@
-import {  useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { RootState } from "../redux/store";
-
+import { incrementFoo, decrementFoo } from "../redux/Cart";
 
 export default function Cart() {
   const cartItems = useSelector((state: RootState) => state.cartData);
+  const dispatch = useDispatch();
   return (
     <CartParent>
       <div className="titles">
@@ -24,17 +25,14 @@ export default function Cart() {
               $<span>{Math.round(item.price)}</span>
             </p>
 
-            <form  className="quantityForm">
-              <input 
-               
-                type="number" 
-                placeholder="1" 
-                min={1} 
-              />
-            </form>
+            <div className="quantity">
+              <button onClick={() => dispatch(decrementFoo(item.id))}>-</button>
+              <span>{item.quantity}</span>
+              <button onClick={() => dispatch(incrementFoo(item.id))}>+</button>
+            </div>
 
             <p className="subtotal">
-              $<span>{Math.round(item.price)}</span>
+              $<span>{Math.round(item.price) * item.quantity}</span>
             </p>
           </div>
         );
@@ -88,17 +86,38 @@ const CartParent = styled.div`
       }
     }
 
-    .quantityForm {
-      width: 72px;
-      height: 44px;
-      border: 1.5px solid rgba(0, 0, 0, 0.4);
-      border-radius: 4px;
+    .quantity {
+      display: flex;
+      align-items: center;
 
-      input{
-        height: 100%;
-        width: 100%;
+      button {
+        font-size: 20px;
+        width: 25px;
+        height: 30px;
+        box-sizing: border-box;
         outline: none;
-        padding: 12px;
+        border: 1px solid rgba(0, 0, 0, 0.5);
+        border-radius: 4px 0px 0px 4px;
+        cursor: pointer;
+        &:nth-child(3) {
+          border-radius: 0px 4px 4px 0px !important;
+        }
+      }
+
+      span {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 30px;
+        color: rgb(0, 0, 0);
+        font-family: "Poppins", sans-serif;
+        font-size: 15px;
+        font-weight: 500;
+        line-height: 28px;
+        box-sizing: border-box;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+        border-top: 1px solid rgba(0, 0, 0, 0.5);
       }
     }
   }

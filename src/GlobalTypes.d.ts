@@ -20,6 +20,7 @@ interface Dimensions {
   }
   
   interface Product {
+    quantity: number
     id: number;
     title: string;
     description: string;
