@@ -1,7 +1,10 @@
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { RootState } from "../redux/store";
-import { incrementFoo, decrementFoo } from "../redux/Cart";
+import { incrementFoo, decrementFoo, clearCart} from "../redux/Cart";
+import { MdOutlineDeleteOutline } from "react-icons/md";
+import { IoHomeOutline } from "react-icons/io5";
+import { Link } from "react-router-dom";
 
 export default function Cart() {
   const cartItems = useSelector((state: RootState) => state.cartData);
@@ -37,6 +40,25 @@ export default function Cart() {
           </div>
         );
       })}
+
+      {
+        cartItems.length > 0 &&
+        <div className="options">
+        <div className="clear-home">
+          <Link to={"/"} className="home c-hBtn">
+            <IoHomeOutline />
+          </Link>
+          <button onClick={(() => dispatch(clearCart()))} className="clearCart c-hBtn">
+            <MdOutlineDeleteOutline />
+          </button>
+        </div>
+        <h3>
+          Total: $<span>
+            {cartItems.reduce((acc, item) => acc + Math.round(item.price) * item.quantity, 0)}
+          </span>
+        </h3>
+      </div>
+      }
     </CartParent>
   );
 }
@@ -119,6 +141,38 @@ const CartParent = styled.div`
         border-bottom: 1px solid rgba(0, 0, 0, 0.5);
         border-top: 1px solid rgba(0, 0, 0, 0.5);
       }
+    }
+  }
+
+  .options {
+    box-sizing: border-box;
+    box-shadow: 0px 1px 13px 0px rgba(0, 0, 0, 0.207);
+    border-radius: 4px;
+    width: 300px;
+    padding: 24px;
+    .clear-home {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+
+      .c-hBtn {
+        background-color: transparent;
+        border: none;
+        font-size: 23px;
+        cursor: pointer;
+        transition: 0.3s ease;
+        &:hover{
+          transform: scale(1.1);
+        }
+      }
+    }
+    h3 {
+      margin-top: 20px;
+      color: rgb(0, 0, 0);
+      font-family: "Poppins", sans-serif;
+      font-size: 20px;
+      font-weight: 800;
+      line-height: 28px;
     }
   }
 `;
