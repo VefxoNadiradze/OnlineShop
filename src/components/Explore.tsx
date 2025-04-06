@@ -116,6 +116,11 @@ const ExplorePar = styled.div`
 
     img {
       width: 100%;
+      transition: 0.5s ease;
+
+      &:hover{
+        transform: scale(1.1);
+      }
     }
 
     &:hover .cartBtn {

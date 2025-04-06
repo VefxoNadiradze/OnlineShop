@@ -6,7 +6,7 @@ import { useEffect } from "react";
 import { fetchProducts } from "../redux/Data";
 import { FaStar } from "react-icons/fa";
 import { MdOutlineShoppingCart } from "react-icons/md";
-import {addToCart} from "../redux/Cart"
+import { addToCart } from "../redux/Cart";
 
 export default function BestSelling() {
   const { products } = useSelector((state: RootState) => state.data);
@@ -22,11 +22,11 @@ export default function BestSelling() {
 
   const starsArr = [<FaStar />, <FaStar />, <FaStar />, <FaStar />, <FaStar />];
 
-     const addCart = (id: number) => {
-       let item = products.find(item => item.id === id);
+  const addCart = (id: number) => {
+    let item = products.find((item) => item.id === id);
 
-       item && dispatch(addToCart(item))
-     }
+    item && dispatch(addToCart(item));
+  };
 
   return (
     <>
@@ -44,8 +44,10 @@ export default function BestSelling() {
                 <Link to={`/Item/${item.id}`}>
                   <img src={item.images[0]} alt="" />
                 </Link>
-                <AddCartBtn onClick={() => addCart(item.id)} className="cartBtn">
-
+                <AddCartBtn
+                  onClick={() => addCart(item.id)}
+                  className="cartBtn"
+                >
                   <MdOutlineShoppingCart /> Add To Cart
                 </AddCartBtn>
               </div>
@@ -59,7 +61,8 @@ export default function BestSelling() {
                 <div className="starsParent">
                   {starsArr.map((star, index) => {
                     return (
-                      <span key={index}
+                      <span
+                        key={index}
                         className={index < item.rating ? "yellow" : "stars"}
                       >
                         {star}
@@ -139,6 +142,11 @@ const BestSellingProducts = styled.div`
 
     img {
       width: 100%;
+      transition: 0.5s ease;
+
+      &:hover {
+        transform: scale(1.1);
+      }
     }
 
     &:hover .cartBtn {
