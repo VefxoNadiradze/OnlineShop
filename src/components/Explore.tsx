@@ -6,6 +6,7 @@ import styled from "styled-components";
 import { FaStar } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { MdOutlineShoppingCart } from "react-icons/md";
+import { addToCart } from "../redux/Cart";
 
 export default function Explore() {
   const { products } = useSelector((state: RootState) => state.data);
@@ -20,7 +21,11 @@ export default function Explore() {
   );
 
   const starsArr = [<FaStar />, <FaStar />, <FaStar />, <FaStar />, <FaStar />];
+  const addCart = (id: number) => {
+       let item = products.find(item => item.id === id);
 
+       item && dispatch(addToCart(item))
+     }
   return (
     <>
       <ExploreHeader>
@@ -35,7 +40,7 @@ export default function Explore() {
                   <img src={item.images[0]} alt="" />
                 </Link>
 
-                <AddCartBtn className="cartBtn">
+                <AddCartBtn onClick={() => addCart(item.id)} className="cartBtn">
 
                   <MdOutlineShoppingCart /> Add To Cart
                 </AddCartBtn>
