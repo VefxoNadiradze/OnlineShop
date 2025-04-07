@@ -10,6 +10,7 @@ import { addToCart } from "../redux/Cart";
 
 export default function BestSelling() {
   const { products } = useSelector((state: RootState) => state.data);
+  const cartData = useSelector((state: RootState) => state.cartData);
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
@@ -45,7 +46,7 @@ export default function BestSelling() {
                   <img src={item.images[0]} alt="" />
                 </Link>
                 <AddCartBtn
-                  onClick={() => addCart(item.id)}
+                  onClick={() => cartData.find((cartitem) => item.id === cartitem.id) ? null : addCart(item.id)}
                   className="cartBtn"
                 >
                   <MdOutlineShoppingCart /> Add To Cart

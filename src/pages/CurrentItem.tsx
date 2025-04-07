@@ -12,6 +12,8 @@ export default function CurrentItem() {
   const { id } = useParams();
 
   const { products } = useSelector((state: RootState) => state.data);
+  const cartData = useSelector((state: RootState) => state.cartData);
+
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
@@ -55,9 +57,14 @@ export default function CurrentItem() {
         </p>
         <p className="AboutItem">{item?.description}</p>
         <div className="addCart-wishlist">
-       
-
-          <button className="addCart" onClick={() => addCart(item?.id)}>
+          <button
+            onClick={() =>
+              cartData.find((cartitem) => item?.id === cartitem.id)
+                ? null
+                : addCart(item?.id)
+            }
+            className="addCart"
+          >
             <MdOutlineShoppingCart /> Add To Cart
           </button>
 

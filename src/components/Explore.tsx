@@ -10,6 +10,8 @@ import { addToCart } from "../redux/Cart";
 
 export default function Explore() {
   const { products } = useSelector((state: RootState) => state.data);
+    const cartData = useSelector((state: RootState) => state.cartData);
+  
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
@@ -22,10 +24,10 @@ export default function Explore() {
 
   const starsArr = [<FaStar />, <FaStar />, <FaStar />, <FaStar />, <FaStar />];
   const addCart = (id: number) => {
-       let item = products.find(item => item.id === id);
+    let item = products.find((item) => item.id === id);
 
-       item && dispatch(addToCart(item))
-     }
+    item && dispatch(addToCart(item));
+  };
   return (
     <>
       <ExploreHeader>
@@ -40,8 +42,10 @@ export default function Explore() {
                   <img src={item.images[0]} alt="" />
                 </Link>
 
-                <AddCartBtn onClick={() => addCart(item.id)} className="cartBtn">
-
+                <AddCartBtn
+                  onClick={() => cartData.find((cartitem) => item.id === cartitem.id)? null : addCart(item.id)}
+                  className="cartBtn"
+                >
                   <MdOutlineShoppingCart /> Add To Cart
                 </AddCartBtn>
               </div>
@@ -55,7 +59,8 @@ export default function Explore() {
                 <div className="starsParent">
                   {starsArr.map((star, index) => {
                     return (
-                      <span key={index}
+                      <span
+                        key={index}
                         className={index < item.rating ? "yellow" : "stars"}
                       >
                         {star}
@@ -118,7 +123,7 @@ const ExplorePar = styled.div`
       width: 100%;
       transition: 0.5s ease;
 
-      &:hover{
+      &:hover {
         transform: scale(1.1);
       }
     }
