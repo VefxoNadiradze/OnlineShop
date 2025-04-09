@@ -18,6 +18,8 @@ export default function Products() {
   }, [dispatch]);
 
   const CategoryItems = products.filter((item) => item.category === category);
+  const cartData = useSelector((state: RootState) => state.cartData);
+
   const starsArr = [<FaStar />, <FaStar />, <FaStar />, <FaStar />, <FaStar />];
 
   const addCart = (id: number) => {
@@ -35,7 +37,7 @@ export default function Products() {
                 <img src={item.images[0]} alt="" />
               </Link>
 
-              <AddCartBtn onClick={() => addCart(item.id)} className="cartBtn">
+              <AddCartBtn onClick={() => cartData.find((cartitem) => item.id === cartitem.id)? null : addCart(item.id)} className="cartBtn">
                 <MdOutlineShoppingCart /> Add To Cart
               </AddCartBtn>
             </div>
