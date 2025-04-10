@@ -140,6 +140,7 @@ const HeaderStyles = styled.header`
       display: flex;
       column-gap: 48px;
       list-style: none;
+      z-index: 13;
 
       @media screen and (max-width: 1200px) {
         column-gap: 23px;
@@ -167,6 +168,11 @@ const HeaderStyles = styled.header`
           padding: 15px 25px !important;
           box-shadow: 0px 0px 2px 0px rgb(0, 0, 0);
         }
+      }
+      @media screen and (max-width: 390px) {
+        top: 160% !important;
+        left: 65% !important;
+
       }
 
       li {

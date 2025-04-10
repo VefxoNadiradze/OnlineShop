@@ -17,5 +17,16 @@ export default function Layout() {
 
 const Main = styled.main`
   padding: 0 135px;
+  @media screen and (max-width: 900px) {
+    padding: 0 50px;
+  }
 
+  @media screen and (max-width: 622px) {
+    padding: 0 20px 
+  }
+
+  @media screen and (max-width: 391px) {
+    padding: 0 10px 
+
+  }
 `;
