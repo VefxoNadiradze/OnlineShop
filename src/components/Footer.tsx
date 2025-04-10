@@ -51,6 +51,25 @@ const FooterPar = styled.footer`
   margin-top: 140px;
   padding: 80px 135px;
   background: rgb(0, 0, 0);
+  gap: 20px;
+
+  @media screen and (max-width: 1210px) {
+    grid-template-columns: repeat(2, 1fr);
+    padding: 80px 110px;
+    gap: 59px;
+  }
+
+  @media screen and (max-width: 1210px) {
+    grid-template-columns: repeat(2, 1fr);
+    padding: 50px 50px;
+    gap: 59px;
+  }
+
+  @media screen and (max-width: 530px) {
+    grid-template-columns: repeat(1, 1fr);
+    padding: 50px 30px;
+
+  }
 
   .footerItem {
     display: flex;
@@ -64,6 +83,10 @@ const FooterPar = styled.footer`
       font-weight: 700;
       line-height: 24px;
       letter-spacing: 3%;
+
+      @media screen and (max-width: 1340px) {
+        font-size: 22px;
+      }
     }
 
     h4 {
@@ -72,6 +95,9 @@ const FooterPar = styled.footer`
       font-size: 20px;
       font-weight: 500;
       line-height: 28px;
+      @media screen and (max-width: 1340px) {
+        font-size: 12px !important;
+      }
     }
 
     p {
@@ -80,6 +106,9 @@ const FooterPar = styled.footer`
       font-size: 16px;
       font-weight: 400;
       line-height: 24px;
+      @media screen and (max-width: 1340px) {
+        font-size: 14px;
+      }
     }
 
     form {

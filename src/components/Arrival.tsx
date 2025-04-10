@@ -95,6 +95,11 @@ const Services = styled.div`
   justify-content: space-between;
   margin-top: 140px;
 
+  @media screen and (max-width: 1140px) {
+    flex-direction: column;
+    gap: 70px;
+  }
+
   .serviceCard {
     display: flex;
     align-items: center;
@@ -123,6 +128,10 @@ const Services = styled.div`
         font-size: 20px;
         font-weight: 600;
         line-height: 28px;
+
+        @media screen and (max-width: 390px) {
+           font-size: 17px;
+        }
       }
 
       p {
@@ -131,6 +140,10 @@ const Services = styled.div`
         font-size: 14px;
         font-weight: 400;
         line-height: 21px;
+
+        @media screen and (max-width: 390px) {
+           font-size: 12px;
+        }
       }
     }
   }
@@ -166,7 +179,7 @@ const ArrivalPar = styled.div`
   }
   @media screen and (max-width: 650px) {
     grid-template-columns: repeat(1, 1fr);
-  grid-template-rows: auto;
+    grid-template-rows: auto;
   }
   .arrivalItem {
     position: relative;
