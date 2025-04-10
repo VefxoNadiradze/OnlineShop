@@ -10,8 +10,8 @@ import { addToCart } from "../redux/Cart";
 
 export default function Explore() {
   const { products } = useSelector((state: RootState) => state.data);
-    const cartData = useSelector((state: RootState) => state.cartData);
-  
+  const cartData = useSelector((state: RootState) => state.cartData);
+
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
@@ -43,7 +43,11 @@ export default function Explore() {
                 </Link>
 
                 <AddCartBtn
-                  onClick={() => cartData.find((cartitem) => item.id === cartitem.id)? null : addCart(item.id)}
+                  onClick={() =>
+                    cartData.find((cartitem) => item.id === cartitem.id)
+                      ? null
+                      : addCart(item.id)
+                  }
                   className="cartBtn"
                 >
                   <MdOutlineShoppingCart /> Add To Cart
@@ -93,6 +97,16 @@ const ViewButton = styled.button`
   border: none;
   cursor: pointer;
   margin-top: 88px;
+
+  @media screen and (max-width: 958px) {
+    font-size: 14px;
+    padding: 14px 44px 14px 44px;
+  }
+
+  @media screen and (max-width: 558px) {
+    font-size: 13px;
+    padding: 11px 32px 11px 32px;
+  }
 `;
 
 const ExploreHeader = styled.div`
@@ -102,6 +116,14 @@ const ExploreHeader = styled.div`
     font-family: "Inter", sans-serif;
     font-size: 32px;
     font-weight: 600;
+
+    @media screen and (max-width: 958px) {
+      font-size: 25px;
+    }
+
+    @media screen and (max-width: 558px) {
+      font-size: 21px;
+    }
   }
 `;
 
@@ -111,6 +133,17 @@ const ExplorePar = styled.div`
   gap: 30px;
   border-radius: 5px;
   margin-top: 60px;
+
+  @media screen and (max-width: 958px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  @media screen and (max-width: 450px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media screen and (max-width: 350px) {
+    grid-template-columns: repeat(1, 1fr);
+  }
 
   .imgPar {
     position: relative;
