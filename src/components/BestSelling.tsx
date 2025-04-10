@@ -46,7 +46,11 @@ export default function BestSelling() {
                   <img src={item.images[0]} alt="" />
                 </Link>
                 <AddCartBtn
-                  onClick={() => cartData.find((cartitem) => item.id === cartitem.id) ? null : addCart(item.id)}
+                  onClick={() =>
+                    cartData.find((cartitem) => item.id === cartitem.id)
+                      ? null
+                      : addCart(item.id)
+                  }
                   className="cartBtn"
                 >
                   <MdOutlineShoppingCart /> Add To Cart
@@ -109,10 +113,24 @@ const SellingHeader = styled.div`
   justify-content: space-between;
   margin-top: 165px;
 
+  @media screen and (max-width: 420px) {
+    flex-direction: column;
+    row-gap: 30px;
+    align-items: flex-start;
+  }
+
   h2 {
     font-family: "Inter", sans-serif;
     font-size: 32px;
     font-weight: 600;
+
+    @media screen and (max-width: 958px) {
+      font-size: 25px;
+    }
+
+    @media screen and (max-width: 558px) {
+      font-size: 21px;
+    }
   }
 
   a {
@@ -124,16 +142,37 @@ const SellingHeader = styled.div`
     padding: 16px 48px 16px 48px;
     border-radius: 5px;
     color: rgb(250, 250, 250);
+
+    @media screen and (max-width: 958px) {
+      font-size: 14px;
+      padding: 14px 44px 14px 44px;
+    }
+
+    @media screen and (max-width: 558px) {
+      font-size: 13px;
+      padding: 11px 32px 11px 32px;
+    }
   }
 `;
 
 const BestSellingProducts = styled.div`
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
   align-items: center;
   gap: 30px;
   border-radius: 5px;
   margin-top: 60px;
 
+  @media screen and (max-width: 958px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  @media screen and (max-width: 450px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media screen and (max-width: 350px) {
+    grid-template-columns: repeat(1, 1fr);
+  }
   .imgPar {
     position: relative;
     overflow: hidden;
