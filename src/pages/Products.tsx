@@ -37,7 +37,14 @@ export default function Products() {
                 <img src={item.images[0]} alt="" />
               </Link>
 
-              <AddCartBtn onClick={() => cartData.find((cartitem) => item.id === cartitem.id)? null : addCart(item.id)} className="cartBtn">
+              <AddCartBtn
+                onClick={() =>
+                  cartData.find((cartitem) => item.id === cartitem.id)
+                    ? null
+                    : addCart(item.id)
+                }
+                className="cartBtn"
+              >
                 <MdOutlineShoppingCart /> Add To Cart
               </AddCartBtn>
             </div>
@@ -74,6 +81,17 @@ const CategoryParent = styled.div`
   gap: 30px;
   border-radius: 5px;
   margin-top: 60px;
+
+  @media screen and (max-width: 1200px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @media screen and (max-width: 970px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @media screen and (max-width: 580px) {
+    grid-template-columns: repeat(1, 1fr);
+  }
 
   .imgPar {
     position: relative;
