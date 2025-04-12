@@ -206,4 +206,10 @@ const AddCartBtn = styled.button`
     color: rgb(0, 0, 0);
     background: rgb(255, 255, 255);
   }
+
+  @media screen and (max-width: 1000px) {
+    bottom: 0%;
+    line-height: 10px;
+    height: 33px;
+  }
 `;

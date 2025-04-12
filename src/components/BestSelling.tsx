@@ -86,7 +86,6 @@ export default function BestSelling() {
 
 const AddCartBtn = styled.button`
   position: absolute;
-  bottom: -100%;
   left: 0;
   transition: 0.5s ease;
   width: 100%;
@@ -100,7 +99,13 @@ const AddCartBtn = styled.button`
   line-height: 18px;
   cursor: pointer;
   border: none;
+  bottom: -100%;
 
+  @media screen and (max-width: 1000px) {
+    bottom: 0%;
+    line-height: 10px;
+    height: 33px;
+  }
   &:hover {
     color: rgb(0, 0, 0);
     background: rgb(255, 255, 255);
