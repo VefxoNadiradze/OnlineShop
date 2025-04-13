@@ -81,15 +81,33 @@ const ItemParent = styled.div`
   margin-top: 130px;
   display: flex;
   column-gap: 70px;
+
+  @media screen and (max-width: 1300px) {
+    column-gap: 20px;
+  }
+
+  @media screen and (max-width: 1100px) {
+    flex-direction: column;
+    row-gap: 50px;
+  }
   .itemImages {
     display: flex;
     align-items: center;
     column-gap: 30px;
 
+    @media screen and (max-width: 1100px) {
+      justify-content: center;
+    }
+    @media screen and (max-width: 900px) {
+      flex-direction: column;
+    }
     .smallImagesPar {
       display: flex;
       flex-direction: column;
       row-gap: 16px;
+      @media screen and (max-width: 900px) {
+        flex-direction: row;
+      }
 
       .smallImage {
         width: 170px;
@@ -103,6 +121,23 @@ const ItemParent = styled.div`
           width: 100%;
           object-fit: contain;
         }
+
+        @media screen and (max-width: 1300px) {
+          width: 140px;
+          height: 128px;
+        }
+        @media screen and (max-width: 1150px) {
+          width: 130px;
+          height: 118px;
+        }
+
+        @media screen and (max-width: 1100px) {
+          width: 170px;
+          height: 138px;
+        }
+        @media screen and (max-width: 900px) {
+          width: 100%;
+        }
       }
     }
 
@@ -114,6 +149,31 @@ const ItemParent = styled.div`
       img {
         height: 100%;
         width: 100%;
+      }
+
+      @media screen and (max-width: 1300px) {
+        width: 400px;
+        height: 500px;
+      }
+
+      @media screen and (max-width: 1150px) {
+        width: 350px;
+        height: 400px;
+      }
+      @media screen and (max-width: 1100px) {
+        width: 500px;
+        height: 600px;
+      }
+      @media screen and (max-width: 900px) {
+        width: 100%;
+      }
+
+      @media screen and (max-width: 550px) {
+        height: 450px;
+      }
+
+      @media screen and (max-width: 400px) {
+        height: 400px;
       }
     }
   }
