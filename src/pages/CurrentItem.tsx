@@ -7,6 +7,7 @@ import styled from "styled-components";
 import { IoHeartOutline } from "react-icons/io5";
 import { MdOutlineShoppingCart } from "react-icons/md";
 import { addToCart } from "../redux/Cart";
+import { FaCheck } from "react-icons/fa";
 
 export default function CurrentItem() {
   const { id } = useParams();
@@ -65,7 +66,15 @@ export default function CurrentItem() {
             }
             className="addCart"
           >
-            <MdOutlineShoppingCart /> Add To Cart
+            {cartData.find((cartitem) => item?.id === cartitem.id) ? (
+              <span className=" AnimatedCartBtn">
+                <FaCheck />
+              </span>
+            ) : (
+              <p>
+                <MdOutlineShoppingCart /> Add To Cart
+              </p>
+            )}
           </button>
 
           <button className="wishlistBtn">
@@ -246,6 +255,24 @@ const ItemParent = styled.div`
         font-size: 20px;
         color: rgb(0, 0, 0);
         cursor: pointer;
+      }
+
+      .AnimatedCartBtn {
+        display: inline-block;
+        animation: slideDown 0.3s ease forwards;
+        font-size: 15px;
+
+        @keyframes slideDown {
+          from {
+            transform: translateY(-20px);
+            opacity: 0;
+            font-size: 15px;
+          }
+          to {
+            transform: translateY(0);
+            opacity: 1;
+          }
+        }
       }
     }
   }

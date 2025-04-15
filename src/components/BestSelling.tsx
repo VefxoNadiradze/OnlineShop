@@ -7,9 +7,10 @@ import { fetchProducts } from "../redux/Data";
 import { FaStar } from "react-icons/fa";
 import { MdOutlineShoppingCart } from "react-icons/md";
 import { addToCart } from "../redux/Cart";
+import { FaCheck } from "react-icons/fa";
 
 export default function BestSelling() {
-  const { products } = useSelector((state: RootState) => state.data);
+  const { products, loading } = useSelector((state: RootState) => state.data);
   const cartData = useSelector((state: RootState) => state.cartData);
   const dispatch = useDispatch<AppDispatch>();
 
@@ -43,17 +44,30 @@ export default function BestSelling() {
             <div key={item.id}>
               <div className="imgPar">
                 <Link to={`/Item/${item.id}`}>
-                  <img src={item.images[0]} alt="" />
+                  {loading ? (
+                    <p>Loading...</p>
+                  ) : (
+                    <img src={item.images[0]} alt={item.title} />
+                  )}
                 </Link>
+
                 <AddCartBtn
                   onClick={() =>
                     cartData.find((cartitem) => item.id === cartitem.id)
                       ? null
                       : addCart(item.id)
                   }
-                  className="cartBtn"
+                  className={"cartBtn"}
                 >
-                  <MdOutlineShoppingCart /> Add To Cart
+                  {cartData.find((cartitem) => item.id === cartitem.id) ? (
+                    <span className=" AnimatedCartBtn">
+                      <FaCheck />
+                    </span>
+                  ) : (
+                    <p>
+                      <MdOutlineShoppingCart /> Add To Cart
+                    </p>
+                  )}
                 </AddCartBtn>
               </div>
 
@@ -109,6 +123,24 @@ const AddCartBtn = styled.button`
   &:hover {
     color: rgb(0, 0, 0);
     background: rgb(255, 255, 255);
+  }
+
+  .AnimatedCartBtn {
+    display: inline-block;
+    animation: slideDown 0.3s ease forwards;
+    font-size: 15px;
+
+    @keyframes slideDown {
+      from {
+        transform: translateY(-20px);
+        opacity: 0;
+        font-size: 15px;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
   }
 `;
 
@@ -185,6 +217,16 @@ const BestSellingProducts = styled.div`
     border-radius: 5px;
     width: 100%;
 
+    @keyframes slideDown {
+      from {
+        transform: translateY(-20px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
     img {
       width: 100%;
       transition: 0.5s ease;

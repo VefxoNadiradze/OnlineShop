@@ -3,7 +3,7 @@ import { fetchProducts } from "../redux/Data";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../redux/store";
 import styled from "styled-components";
-import { FaStar } from "react-icons/fa";
+import { FaCheck, FaStar } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { MdOutlineShoppingCart } from "react-icons/md";
 import { addToCart } from "../redux/Cart";
@@ -50,7 +50,15 @@ export default function Explore() {
                   }
                   className="cartBtn"
                 >
-                  <MdOutlineShoppingCart /> Add To Cart
+                  {cartData.find((cartitem) => item.id === cartitem.id) ? (
+                    <span className=" AnimatedCartBtn">
+                      <FaCheck />
+                    </span>
+                  ) : (
+                    <p>
+                      <MdOutlineShoppingCart /> Add To Cart
+                    </p>
+                  )}
                 </AddCartBtn>
               </div>
 
@@ -211,5 +219,23 @@ const AddCartBtn = styled.button`
     bottom: 0%;
     line-height: 10px;
     height: 33px;
+  }
+
+  .AnimatedCartBtn {
+    display: inline-block;
+    animation: slideDown 0.3s ease forwards;
+    font-size: 15px;
+
+    @keyframes slideDown {
+      from {
+        transform: translateY(-20px);
+        opacity: 0;
+        font-size: 15px;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
   }
 `;
