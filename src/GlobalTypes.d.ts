@@ -44,4 +44,3 @@ interface Dimensions {
     images: string[];
     thumbnail: string;
   }
-  
