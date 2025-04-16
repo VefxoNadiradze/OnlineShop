@@ -5,6 +5,9 @@ import { Link } from "react-router-dom";
 import { addToCart } from "../redux/Cart";
 import { MdOutlineShoppingCart } from "react-icons/md";
 import { styled } from "styled-components";
+import { FaTrash } from "react-icons/fa6";
+import {removeCurrentItem} from "../redux/wishlist";
+
 
 export default function Wishlist() {
   const wishlistData = useSelector((state: RootState) => state.wishlistData);
@@ -19,64 +22,63 @@ export default function Wishlist() {
   };
   return (
     <>
-    
-    <WishlistPar>
-      {wishlistData.map((item) => {
-        return (
-          <div key={item.id}>
-            <div className="imgPar">
-              <Link to={`/Item/${item.id}`}>
-                <img src={item.images[0]} alt="" />
-              </Link>
-
-              <AddCartBtn
-                onClick={() =>
-                  cartData.find((cartitem) => item.id === cartitem.id)
-                    ? null
-                    : addCart(item.id)
-                }
-                className="cartBtn"
-              >
-                {cartData.find((cartitem) => item?.id === cartitem.id) ? (
-                  <span className=" AnimatedCartBtn">
-                    <FaCheck />
-                  </span>
-                ) : (
-                  <p>
-                    <MdOutlineShoppingCart /> Add To Cart
-                  </p>
-                )}
-              </AddCartBtn>
-            </div>
-
-            <div className="description">
-              <p className="title">{item.title}</p>
-              <p className="price">
-                $ <span>{Math.round(item.price)}</span>
-              </p>
-
-              <div className="starsParent">
-                {starsArr.map((star, index) => {
-                  return (
-                    <span
-                      key={index}
-                      className={index < item.rating ? "yellow" : "stars"}
-                    >
-                      {star}
+      <WishlistPar>
+        {wishlistData.map((item) => {
+          return (
+            <div key={item.id}>
+              <div className="imgPar">
+                <button onClick={() => dispatch(removeCurrentItem(item.id))} className="removeWishlist">
+                  <FaTrash />
+                </button>
+                <Link to={`/Item/${item.id}`}>
+                  <img src={item.images[0]} alt="" />
+                </Link>
+                <AddCartBtn
+                  onClick={() =>
+                    cartData.find((cartitem) => item.id === cartitem.id)
+                      ? null
+                      : addCart(item.id)
+                  }
+                  className="cartBtn"
+                >
+                  {cartData.find((cartitem) => item?.id === cartitem.id) ? (
+                    <span className=" AnimatedCartBtn">
+                      <FaCheck />
                     </span>
-                  );
-                })}
+                  ) : (
+                    <p>
+                      <MdOutlineShoppingCart /> Add To Cart
+                    </p>
+                  )}
+                </AddCartBtn>
+              </div>
+
+              <div className="description">
+                <p className="title">{item.title}</p>
+                <p className="price">
+                  $ <span>{Math.round(item.price)}</span>
+                </p>
+
+                <div className="starsParent">
+                  {starsArr.map((star, index) => {
+                    return (
+                      <span
+                        key={index}
+                        className={index < item.rating ? "yellow" : "stars"}
+                      >
+                        {star}
+                      </span>
+                    );
+                  })}
+                </div>
               </div>
             </div>
-          </div>
-        );
-      })}
-    </WishlistPar>
+          );
+        })}
+      </WishlistPar>
     </>
   );
 }
-
-
 
 const WishlistPar = styled.div`
   display: grid;
@@ -116,6 +118,23 @@ const WishlistPar = styled.div`
 
     &:hover .cartBtn {
       bottom: 0;
+    }
+
+    .removeWishlist {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      z-index: 3;
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
+      font-size: 15px;
+      transition: 0.5s ease;
+      opacity: 0;
+    }
+
+    &:hover .removeWishlist {
+      opacity: 1;
     }
   }
 
