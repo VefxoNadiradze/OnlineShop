@@ -18,6 +18,8 @@ export default function Wishlist() {
     item && dispatch(addToCart(item));
   };
   return (
+    <>
+    
     <WishlistPar>
       {wishlistData.map((item) => {
         return (
@@ -70,8 +72,12 @@ export default function Wishlist() {
         );
       })}
     </WishlistPar>
+    </>
   );
 }
+
+
+
 const WishlistPar = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);

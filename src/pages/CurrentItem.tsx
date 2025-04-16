@@ -9,6 +9,7 @@ import { MdOutlineShoppingCart } from "react-icons/md";
 import { addToCart } from "../redux/Cart";
 import { FaCheck } from "react-icons/fa";
 import { addToWishlist } from "../redux/wishlist";
+import { FaHeart } from "react-icons/fa";
 
 export default function CurrentItem() {
   const { id } = useParams();
@@ -93,7 +94,15 @@ export default function CurrentItem() {
             }
             className="wishlistBtn"
           >
-            <IoHeartOutline />
+            {wishlistData.find(
+              (wishlistItem) => item?.id === wishlistItem.id,
+            ) ? (
+              <span className="AnimatedWishlistBtn">
+                <FaHeart />
+              </span>
+            ) : (
+              <IoHeartOutline />
+            )}
           </button>
         </div>
       </div>
@@ -270,6 +279,33 @@ const ItemParent = styled.div`
         font-size: 20px;
         color: rgb(0, 0, 0);
         cursor: pointer;
+
+        .AnimatedWishlistBtn {
+          display: block;
+          animation: animate 1s ease forwards;
+
+          @keyframes animate {
+            0% {
+              transform: scale(1);
+            }
+            30% {
+              transform: scale(1.3);
+              color: #ff0000;
+            }
+            50% {
+              transform: scale(0.9);
+              color: #ff0000;
+            }
+            70% {
+              transform: scale(1.1);
+              color: #ff0000;
+            }
+            100% {
+              transform: scale(1);
+              color: #ff0000;
+            }
+          }
+        }
       }
 
       .AnimatedCartBtn {
