@@ -8,12 +8,14 @@ import { IoHeartOutline } from "react-icons/io5";
 import { MdOutlineShoppingCart } from "react-icons/md";
 import { addToCart } from "../redux/Cart";
 import { FaCheck } from "react-icons/fa";
+import { addToWishlist } from "../redux/wishlist";
 
 export default function CurrentItem() {
   const { id } = useParams();
 
   const { products } = useSelector((state: RootState) => state.data);
   const cartData = useSelector((state: RootState) => state.cartData);
+  const wishlistData = useSelector((state: RootState) => state.wishlistData);
 
   const dispatch = useDispatch<AppDispatch>();
 
@@ -28,6 +30,12 @@ export default function CurrentItem() {
     let item = products.find((item) => item.id === id);
 
     item && dispatch(addToCart(item));
+  };
+
+  const addWishlist = (id: number | undefined) => {
+    let item = products.find((item) => item.id === id);
+
+    item && dispatch(addToWishlist(item));
   };
   return (
     <ItemParent>
@@ -77,7 +85,14 @@ export default function CurrentItem() {
             )}
           </button>
 
-          <button className="wishlistBtn">
+          <button
+            onClick={() =>
+              wishlistData.find((wishlistItem) => item?.id === wishlistItem.id)
+                ? null
+                : addWishlist(item?.id)
+            }
+            className="wishlistBtn"
+          >
             <IoHeartOutline />
           </button>
         </div>

@@ -11,6 +11,7 @@ import GlobalStyle from './GlobalStyles'
 import Products from './pages/Products'
 import CurrentItem from './pages/CurrentItem'
 import Cart from './pages/Cart'
+import Wishlist from './pages/Wishlist'
 
 
 const router = createBrowserRouter([
@@ -41,6 +42,10 @@ const router = createBrowserRouter([
         {
           path: "/Cart",
           element: <Cart/>
+        },
+        {
+          path: "/Wishlist",
+          element: <Wishlist/>
         }
      ]
    }
