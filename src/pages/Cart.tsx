@@ -10,65 +10,89 @@ export default function Cart() {
   const cartItems = useSelector((state: RootState) => state.cartData);
   const dispatch = useDispatch();
   return (
-    <CartParent>
-      <div className="titles">
-        <span>Product</span>
-        <span>Price</span>
-        <span>Quantity</span>
-        <span>Subtotal</span>
-      </div>
-      {cartItems.map((item) => {
-        return (
-          <div key={item.id} className="cartItem">
-            <div className="img-title">
-              <img src={item.images[0]} alt="" />
-              <span>{item.title}</span>
-            </div>
-            <p className="price">
-              $<span>{Math.round(item.price)}</span>
-            </p>
-
-            <div className="quantity">
-              <button onClick={() => dispatch(decrementFoo(item.id))}>-</button>
-              <span>{item.quantity}</span>
-              <button onClick={() => dispatch(incrementFoo(item.id))}>+</button>
-            </div>
-
-            <p className="subtotal">
-              $<span>{Math.round(item.price) * item.quantity}</span>
-            </p>
+    <>
+      <CartParent>
+        {cartItems.length < 1 ? (
+          <Empty className="emptyCart">Your Cart is Empty</Empty>
+        ) : (
+          <div className="titles">
+            <span>Product</span>
+            <span>Price</span>
+            <span>Quantity</span>
+            <span>Subtotal</span>
           </div>
-        );
-      })}
+        )}
+        {cartItems.map((item) => {
+          return (
+            <div key={item.id} className="cartItem">
+              <div className="img-title">
+                <img src={item.images[0]} alt="" />
+                <span>{item.title}</span>
+              </div>
+              <p className="price">
+                $<span>{Math.round(item.price)}</span>
+              </p>
 
-      {cartItems.length > 0 && (
-        <div className="options">
-          <div className="clear-home">
-            <Link to={"/"} className="home c-hBtn">
-              <IoHomeOutline />
-            </Link>
-            <button
-              onClick={() => dispatch(clearCart())}
-              className="clearCart c-hBtn"
-            >
-              <MdOutlineDeleteOutline />
-            </button>
+              <div className="quantity">
+                <button onClick={() => dispatch(decrementFoo(item.id))}>
+                  -
+                </button>
+                <span>{item.quantity}</span>
+                <button onClick={() => dispatch(incrementFoo(item.id))}>
+                  +
+                </button>
+              </div>
+
+              <p className="subtotal">
+                $<span>{Math.round(item.price) * item.quantity}</span>
+              </p>
+            </div>
+          );
+        })}
+
+        {cartItems.length > 0 && (
+          <div className="options">
+            <div className="clear-home">
+              <Link to={"/"} className="home c-hBtn">
+                <IoHomeOutline />
+              </Link>
+              <button
+                onClick={() => dispatch(clearCart())}
+                className="clearCart c-hBtn"
+              >
+                <MdOutlineDeleteOutline />
+              </button>
+            </div>
+            <h3>
+              Total: $
+              <span>
+                {cartItems.reduce(
+                  (acc, item) => acc + Math.round(item.price) * item.quantity,
+                  0,
+                )}
+              </span>
+            </h3>
           </div>
-          <h3>
-            Total: $
-            <span>
-              {cartItems.reduce(
-                (acc, item) => acc + Math.round(item.price) * item.quantity,
-                0,
-              )}
-            </span>
-          </h3>
-        </div>
-      )}
-    </CartParent>
+        )}
+      </CartParent>
+    </>
   );
 }
+const Empty = styled.h2`
+  text-align: center;
+  font-family: "Poppins", sans-serif;
+  margin-top: 100px;
+  font-size: 40px;
+  letter-spacing: 8px;
+  font-weight: 500;
+  color: red;
+  padding: 20px;
+  border-radius: 5px;
 
+  @media screen and (max-width: 750px) {
+    font-size: 25px;
+  }
+`;
 const CartParent = styled.div`
   display: flex;
   flex-direction: column;

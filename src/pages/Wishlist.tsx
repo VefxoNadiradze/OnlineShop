@@ -6,8 +6,7 @@ import { addToCart } from "../redux/Cart";
 import { MdOutlineShoppingCart } from "react-icons/md";
 import { styled } from "styled-components";
 import { FaTrash } from "react-icons/fa6";
-import {removeCurrentItem} from "../redux/wishlist";
-
+import { removeCurrentItem } from "../redux/wishlist";
 
 export default function Wishlist() {
   const wishlistData = useSelector((state: RootState) => state.wishlistData);
@@ -22,12 +21,18 @@ export default function Wishlist() {
   };
   return (
     <>
+      {wishlistData.length < 1 && (
+        <Empty className="emptyWishlist">Your Wishlist is Empty</Empty>
+      )}
       <WishlistPar>
         {wishlistData.map((item) => {
           return (
             <div key={item.id}>
               <div className="imgPar">
-                <button onClick={() => dispatch(removeCurrentItem(item.id))} className="removeWishlist">
+                <button
+                  onClick={() => dispatch(removeCurrentItem(item.id))}
+                  className="removeWishlist"
+                >
                   <FaTrash />
                 </button>
                 <Link to={`/Item/${item.id}`}>
@@ -79,6 +84,22 @@ export default function Wishlist() {
     </>
   );
 }
+
+const Empty = styled.h2`
+  text-align: center;
+  font-family: "Poppins", sans-serif;
+  margin-top: 100px;
+  font-size: 40px;
+  letter-spacing: 8px;
+  font-weight: 500;
+  color: red;
+  padding: 20px;
+  border-radius: 5px;
+
+  @media screen and (max-width: 750px) {
+    font-size: 25px;
+  }
+`;
 
 const WishlistPar = styled.div`
   display: grid;
@@ -132,8 +153,7 @@ const WishlistPar = styled.div`
       transition: 0.5s ease;
       opacity: 0;
 
-
-      @media screen and (max-width: 1000px){
+      @media screen and (max-width: 1000px) {
         opacity: 1;
       }
     }
