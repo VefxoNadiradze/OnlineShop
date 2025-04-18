@@ -7,9 +7,8 @@ import styled from "styled-components";
 import { IoHeartOutline } from "react-icons/io5";
 import { MdOutlineShoppingCart } from "react-icons/md";
 import { addToCart } from "../redux/Cart";
-import { FaCheck } from "react-icons/fa";
 import { addToWishlist } from "../redux/wishlist";
-import { FaHeart } from "react-icons/fa";
+import { FaCheck, FaHeart } from "react-icons/fa";
 
 export default function CurrentItem() {
   const { id } = useParams();

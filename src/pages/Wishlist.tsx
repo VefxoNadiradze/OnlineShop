@@ -131,6 +131,11 @@ const WishlistPar = styled.div`
       font-size: 15px;
       transition: 0.5s ease;
       opacity: 0;
+
+
+      @media screen and (max-width: 1000px){
+        opacity: 1;
+      }
     }
 
     &:hover .removeWishlist {
