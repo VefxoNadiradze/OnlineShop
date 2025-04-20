@@ -1,19 +1,35 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { CiSearch } from "react-icons/ci";
 import { FaRegHeart } from "react-icons/fa";
 import { MdOutlineShoppingCart } from "react-icons/md";
 import { FaUserCircle } from "react-icons/fa";
-import { useSelector } from "react-redux";
-import { RootState } from "../redux/store";
+import {  useSelector } from "react-redux";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { useState } from "react";
 import { IoMdClose } from "react-icons/io";
+import { RootState } from "../redux/store";
+
+
 
 export default function Header() {
   let cartItems = useSelector((state: RootState) => state.cartData);
   const [activeMenu, setActiveMenu] = useState<boolean>(false);
   const [activeSearch, setActiveSearch] = useState<boolean>(false);
+  const [productName, setProductName] = useState<string>("");
+  const navigate = useNavigate()
+
+  
+
+  const SearchFoo = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const trimmedName = productName.trim();
+    if (trimmedName.length > 0) {
+      navigate(`/search-products/${encodeURIComponent(trimmedName)}`);
+    }
+   
+  };
+
   return (
     <HeaderStyles>
       <nav>
@@ -47,11 +63,18 @@ export default function Header() {
         >
           {activeSearch ? <IoMdClose /> : <CiSearch />}
         </button>
-        <form className={activeSearch ? "activeForm" : ""}>
-          <input type="text" placeholder="What are you looking for?" />
-          <span>
+        <form
+          onSubmit={(event) => SearchFoo(event)}
+          className={activeSearch ? "activeForm" : ""}
+        >
+          <input
+            onChange={(e) => setProductName(e.target.value)}
+            type="text"
+            placeholder="What are you looking for?"
+          />
+          <button type="submit">
             <CiSearch />
-          </span>
+          </button>
         </form>
         <Link to={"/Wishlist"}>
           <FaRegHeart />
@@ -172,7 +195,6 @@ const HeaderStyles = styled.header`
       @media screen and (max-width: 390px) {
         top: 160% !important;
         left: 65% !important;
-
       }
 
       li {
@@ -272,9 +294,12 @@ const HeaderStyles = styled.header`
       @media screen and (max-width: 490px) {
         width: 100% !important;
       }
-      span {
+      button {
         position: absolute;
         top: 50%;
+        font-size: 15px;
+        border: none;
+        cursor: pointer;
         transform: translateY(-50%);
         right: 12px;
         @media screen and (max-width: 490px) {

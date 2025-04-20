@@ -37,6 +37,8 @@ export default function CurrentItem() {
 
     item && dispatch(addToWishlist(item));
   };
+
+
   return (
     <ItemParent>
       <div className="itemImages">

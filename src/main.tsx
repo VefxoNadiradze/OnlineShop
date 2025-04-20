@@ -12,7 +12,7 @@ import Products from './pages/Products'
 import CurrentItem from './pages/CurrentItem'
 import Cart from './pages/Cart'
 import Wishlist from './pages/Wishlist'
-
+import SearchProducts from './pages/SearchProducts'
 
 const router = createBrowserRouter([
    {
@@ -46,6 +46,10 @@ const router = createBrowserRouter([
         {
           path: "/Wishlist",
           element: <Wishlist/>
+        },
+        {
+          path: "/search-products/:name",
+          element: <SearchProducts/>
         }
      ]
    }
