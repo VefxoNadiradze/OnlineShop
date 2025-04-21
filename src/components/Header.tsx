@@ -41,7 +41,7 @@ export default function Header() {
         .includes(searchValue.toLocaleLowerCase()),
   );
   const liveSearchFoo = (value: string) => {
-    if (value.trim() !== "" ) {
+    if (value.trim() !== "") {
       setSearchValue(value);
     } else {
       setSearchValue("");
@@ -74,10 +74,14 @@ export default function Header() {
 
       <div className="user-actions">
         <button
+         
           className={
             activeSearch ? "activeSearch showHideInput" : "showHideInput"
           }
-          onClick={() => setActiveSearch(!activeSearch)}
+          onClick={() => {
+            setActiveSearch(!activeSearch);
+            activeSearch && setSearchValue("");
+          }}
         >
           {activeSearch ? <IoMdClose /> : <CiSearch />}
         </button>
@@ -107,6 +111,8 @@ export default function Header() {
                     onClick={() => setSearchValue("")}
                     to={`/Item/${item.id}`}
                   >
+                    <img src={item.images[0]} alt="product img" />
+
                     {item.title}
                   </Link>
                 </div>
@@ -130,19 +136,6 @@ export default function Header() {
     </HeaderStyles>
   );
 }
-
-const LiveSearchParent = styled.div`
-  position: absolute;
-  box-shadow: 0px 0px 20px gray;
-  background-color: white;
-  z-index: 10;
-  padding: 10px;
-  font-family: "Poppins", sans-serif;
-  font-weight: 500;
-  padding: 10px 15px;
-  width: 100%;
-  top: 163%;
-`;
 
 const HeaderStyles = styled.header`
   display: flex;
@@ -273,7 +266,6 @@ const HeaderStyles = styled.header`
   }
 
   .user-actions {
-    position: relative;
     display: flex;
     align-items: center;
     column-gap: 24px;
@@ -296,8 +288,8 @@ const HeaderStyles = styled.header`
         left: 10px;
       }
       @media screen and (max-width: 490px) {
-        left: 92%;
         background: rgb(245, 245, 245) !important;
+        left: 89%;
       }
     }
 
@@ -423,6 +415,65 @@ const HeaderStyles = styled.header`
         border-radius: 50%;
         font-family: "Poppins", sans-serif;
         font-weight: 300;
+      }
+    }
+  }
+`;
+
+const LiveSearchParent = styled.div`
+  position: absolute;
+  box-shadow: 0px 0px 20px gray;
+  background-color: white;
+  z-index: 10;
+  padding: 10px;
+  padding: 10px 15px;
+  width: 30%;
+  top: 19%;
+  left: 58%;
+  max-height: 580px;
+  overflow: auto;
+
+  @media screen and (max-width: 1200px) {
+    width: 40%;
+    left: 50%;
+  }
+  @media screen and (max-width: 990px) {
+    width: 45%;
+    left: 40%;
+  }
+  @media screen and (max-width: 835px) {
+    top: 17%;
+  }
+  @media screen and (max-width: 750px) {
+    width: 75%;
+    left: 20%;
+  }
+  @media screen and (max-width: 500px) {
+    width: 95%;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  @media screen and (max-width: 390px) {
+    width: 95%;
+    top: 22%;
+  }
+  .liveSearchItem {
+    a {
+      text-decoration: none;
+      font-size: 17px;
+      font-family: "Poppins", sans-serif;
+      font-weight: 500;
+      display: block;
+      color: #000000;
+      margin: 22px 0;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      img {
+        height: 50px;
+      }
+      @media screen and (max-width: 390px) {
+        font-size: 15px !important;
       }
     }
   }
