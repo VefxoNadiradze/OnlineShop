@@ -4,22 +4,20 @@ import { CiSearch } from "react-icons/ci";
 import { FaRegHeart } from "react-icons/fa";
 import { MdOutlineShoppingCart } from "react-icons/md";
 import { FaUserCircle } from "react-icons/fa";
-import {  useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { useState } from "react";
 import { IoMdClose } from "react-icons/io";
 import { RootState } from "../redux/store";
 
-
-
 export default function Header() {
   let cartItems = useSelector((state: RootState) => state.cartData);
+  const { products } = useSelector((state: RootState) => state.data);
   const [activeMenu, setActiveMenu] = useState<boolean>(false);
   const [activeSearch, setActiveSearch] = useState<boolean>(false);
   const [productName, setProductName] = useState<string>("");
-  const navigate = useNavigate()
-
-  
+  const navigate = useNavigate();
+  const [searchValue, setSearchValue] = useState<string>("");
 
   const SearchFoo = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -27,7 +25,27 @@ export default function Header() {
     if (trimmedName.length > 0) {
       navigate(`/search-products/${encodeURIComponent(trimmedName)}`);
     }
-   
+  };
+
+  const filtered = products.filter(
+    (item) =>
+      item.title.toLowerCase().includes(searchValue.toLowerCase()) ||
+      item.category
+        .toLocaleLowerCase()
+        .includes(searchValue.toLocaleLowerCase()) ||
+      item.tags[0]
+        ?.toLocaleLowerCase()
+        .includes(searchValue.toLocaleLowerCase()) ||
+      item.tags[1]
+        ?.toLocaleLowerCase()
+        .includes(searchValue.toLocaleLowerCase()),
+  );
+  const liveSearchFoo = (value: string) => {
+    if (value.trim() !== "" ) {
+      setSearchValue(value);
+    } else {
+      setSearchValue("");
+    }
   };
 
   return (
@@ -68,7 +86,11 @@ export default function Header() {
           className={activeSearch ? "activeForm" : ""}
         >
           <input
-            onChange={(e) => setProductName(e.target.value)}
+            value={searchValue}
+            onChange={(e) => {
+              setProductName(e.target.value);
+              liveSearchFoo(e.target.value);
+            }}
             type="text"
             placeholder="What are you looking for?"
           />
@@ -76,6 +98,22 @@ export default function Header() {
             <CiSearch />
           </button>
         </form>
+        {searchValue.length > 0 && filtered.length > 0 && (
+          <LiveSearchParent>
+            {filtered.map((item) => {
+              return (
+                <div className="liveSearchItem">
+                  <Link
+                    onClick={() => setSearchValue("")}
+                    to={`/Item/${item.id}`}
+                  >
+                    {item.title}
+                  </Link>
+                </div>
+              );
+            })}
+          </LiveSearchParent>
+        )}
         <Link to={"/Wishlist"}>
           <FaRegHeart />
         </Link>
@@ -92,6 +130,19 @@ export default function Header() {
     </HeaderStyles>
   );
 }
+
+const LiveSearchParent = styled.div`
+  position: absolute;
+  box-shadow: 0px 0px 20px gray;
+  background-color: white;
+  z-index: 10;
+  padding: 10px;
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  padding: 10px 15px;
+  width: 100%;
+  top: 163%;
+`;
 
 const HeaderStyles = styled.header`
   display: flex;
@@ -222,6 +273,7 @@ const HeaderStyles = styled.header`
   }
 
   .user-actions {
+    position: relative;
     display: flex;
     align-items: center;
     column-gap: 24px;
