@@ -428,7 +428,7 @@ const LiveSearchParent = styled.div`
   padding: 10px;
   padding: 10px 15px;
   width: 30%;
-  top: 19%;
+  top: 11.7%;
   left: 58%;
   max-height: 580px;
   overflow: auto;
@@ -442,7 +442,7 @@ const LiveSearchParent = styled.div`
     left: 40%;
   }
   @media screen and (max-width: 835px) {
-    top: 17%;
+    top: 12%;
   }
   @media screen and (max-width: 750px) {
     width: 75%;
@@ -455,7 +455,7 @@ const LiveSearchParent = styled.div`
   }
   @media screen and (max-width: 390px) {
     width: 95%;
-    top: 22%;
+    top: 15.5%;
   }
   .liveSearchItem {
     a {
