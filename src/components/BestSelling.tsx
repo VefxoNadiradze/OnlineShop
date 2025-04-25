@@ -35,7 +35,7 @@ export default function BestSelling() {
       <SellingHeader>
         <h2>Best Selling Products</h2>
 
-        <Link to={"/"}>View All</Link>
+        <Link to={"/TopSelling"}>View All</Link>
       </SellingHeader>
 
       <BestSellingProducts>

@@ -13,7 +13,7 @@ import CurrentItem from './pages/CurrentItem'
 import Cart from './pages/Cart'
 import Wishlist from './pages/Wishlist'
 import SearchProducts from './pages/SearchProducts'
-
+import TopSelling from './pages/TopSelling'
 const router = createBrowserRouter([
    {
      path: "/",
@@ -50,6 +50,10 @@ const router = createBrowserRouter([
         {
           path: "/search-products/:name",
           element: <SearchProducts/>
+        },
+        {
+          path: "/TopSelling",
+          element: <TopSelling/>
         }
      ]
    }
