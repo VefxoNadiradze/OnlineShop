@@ -6,7 +6,7 @@ import { MdOutlineShoppingCart } from "react-icons/md";
 import { FaUserCircle } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import { GiHamburgerMenu } from "react-icons/gi";
-import {  useState } from "react";
+import { useState } from "react";
 import { IoMdClose } from "react-icons/io";
 import { RootState } from "../redux/store";
 
@@ -62,17 +62,12 @@ export default function Header() {
         </button>
         <ul className={activeMenu ? "active" : ""}>
           <li>
-            <Link
-
-              className={currentPath === "/" ? "active" : ""}
-              to="/"
-            >
+            <Link className={currentPath === "/" ? "active" : ""} to="/">
               Home
             </Link>
           </li>
           <li>
             <Link
-
               className={currentPath === "/Contact" ? "active" : ""}
               to="/Contact"
             >
@@ -82,7 +77,6 @@ export default function Header() {
 
           <li>
             <Link
-
               className={currentPath === "/About" ? "active" : ""}
               to="/About"
             >
@@ -283,6 +277,7 @@ const HeaderStyles = styled.header`
 
         .active {
           position: relative;
+          color: #DB4444;
           &:after {
             content: "";
             position: absolute;
@@ -290,7 +285,7 @@ const HeaderStyles = styled.header`
             left: 0;
             width: 100%;
             height: 2px;
-            background: black;
+            background: #DB4444;
           }
         }
       }
