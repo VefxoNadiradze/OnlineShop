@@ -6,7 +6,7 @@ import { MdOutlineShoppingCart } from "react-icons/md";
 import { FaUserCircle } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import { GiHamburgerMenu } from "react-icons/gi";
-import { useState } from "react";
+import {  useState } from "react";
 import { IoMdClose } from "react-icons/io";
 import { RootState } from "../redux/store";
 
@@ -26,6 +26,8 @@ export default function Header() {
       navigate(`/search-products/${encodeURIComponent(trimmedName)}`);
     }
   };
+
+  const currentPath = location.pathname;
 
   const filtered = products.filter(
     (item) =>
@@ -60,21 +62,38 @@ export default function Header() {
         </button>
         <ul className={activeMenu ? "active" : ""}>
           <li>
-            <Link to="/">Home</Link>
+            <Link
+
+              className={currentPath === "/" ? "active" : ""}
+              to="/"
+            >
+              Home
+            </Link>
           </li>
           <li>
-            <Link to="/Contact">Contact</Link>
+            <Link
+
+              className={currentPath === "/Contact" ? "active" : ""}
+              to="/Contact"
+            >
+              Contact
+            </Link>
           </li>
 
           <li>
-            <Link to="/About">About</Link>
+            <Link
+
+              className={currentPath === "/About" ? "active" : ""}
+              to="/About"
+            >
+              About
+            </Link>
           </li>
         </ul>
       </nav>
 
       <div className="user-actions">
         <button
-         
           className={
             activeSearch ? "activeSearch showHideInput" : "showHideInput"
           }
@@ -259,6 +278,19 @@ const HeaderStyles = styled.header`
           }
           @media screen and (max-width: 992px) {
             font-size: 17px !important;
+          }
+        }
+
+        .active {
+          position: relative;
+          &:after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: black;
           }
         }
       }
