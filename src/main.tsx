@@ -14,6 +14,7 @@ import Cart from './pages/Cart'
 import Wishlist from './pages/Wishlist'
 import SearchProducts from './pages/SearchProducts'
 import TopSelling from './pages/TopSelling'
+import ExplorePage from './pages/ExplorePage'
 const router = createBrowserRouter([
    {
      path: "/",
@@ -54,6 +55,10 @@ const router = createBrowserRouter([
         {
           path: "/TopSelling",
           element: <TopSelling/>
+        },
+        {
+          path: "/Explore",
+          element: <ExplorePage/>
         }
      ]
    }

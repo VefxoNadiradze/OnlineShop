@@ -86,34 +86,44 @@ export default function Explore() {
         })}
       </ExplorePar>
 
-      <ViewButton className="viewBtn">View All Products</ViewButton>
+      <ViewButtonParent>
+        <Link to={"/Explore"} className="viewButton">
+          View All Products
+        </Link>
+      </ViewButtonParent>
     </>
   );
 }
 
-const ViewButton = styled.button`
-  display: block;
-  margin: 0 auto;
-  color: rgb(250, 250, 250);
-  font-family: "Poppins", sans-serif;
-  font-size: 16px;
-  font-weight: 500;
-  line-height: 24px;
-  border-radius: 4px;
-  background: rgb(219, 68, 68);
-  padding: 16px 48px 16px 48px;
-  border: none;
-  cursor: pointer;
-  margin-top: 88px;
+const ViewButtonParent = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .viewButton {
+    text-decoration: none;
+    display: block;
+    margin: 0 auto;
+    color: rgb(250, 250, 250);
+    font-family: "Poppins", sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+    border-radius: 4px;
+    background: rgb(219, 68, 68);
+    padding: 16px 48px 16px 48px;
+    border: none;
+    cursor: pointer;
+    margin-top: 88px;
 
-  @media screen and (max-width: 958px) {
-    font-size: 14px;
-    padding: 14px 44px 14px 44px;
-  }
+    @media screen and (max-width: 958px) {
+      font-size: 14px;
+      padding: 14px 44px 14px 44px;
+    }
 
-  @media screen and (max-width: 558px) {
-    font-size: 13px;
-    padding: 11px 32px 11px 32px;
+    @media screen and (max-width: 558px) {
+      font-size: 13px;
+      padding: 11px 32px 11px 32px;
+    }
   }
 `;
 
