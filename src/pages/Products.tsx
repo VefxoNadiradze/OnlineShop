@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { fetchProducts } from "../redux/Data";
 import { useDispatch, useSelector } from "react-redux";
@@ -13,12 +13,17 @@ export default function Products() {
   const { category } = useParams();
   const { products } = useSelector((state: RootState) => state.data);
   const dispatch = useDispatch<AppDispatch>();
-
+  const [Products, setProduct] = useState<Product[]>();
   useEffect(() => {
     dispatch(fetchProducts());
   }, [dispatch]);
 
-  const CategoryItems = products.filter((item) => item.category === category);
+  useEffect(() => {
+    const filteredProducts = products.filter(
+      (item) => item.category === category,
+    );
+    setProduct(filteredProducts);
+  }, [category, products]);
   const cartData = useSelector((state: RootState) => state.cartData);
 
   const starsArr = [<FaStar />, <FaStar />, <FaStar />, <FaStar />, <FaStar />];
@@ -28,65 +33,87 @@ export default function Products() {
 
     item && dispatch(addToCart(item));
   };
+
+  const FilterProduct = (event: string) => {
+    let filteredProducts = products.filter(
+      (item) =>
+        item.title.toLowerCase().includes(event.toLowerCase()) ||
+        item.category.toLowerCase().includes(event.toLowerCase()) && item.category === category,
+
+    );
+    setProduct(filteredProducts);
+  };
+
+  console.log(Products)
   return (
     <>
-      <FilterComponent />
-
+      <FilterComponent filterFoo={FilterProduct} />
+       {Products?.length === 0 && <FilterError> No Products Found</FilterError>}
       <CategoryParent>
-        {CategoryItems.map((item) => {
-          return (
-            <div key={item.id}>
-              <div className="imgPar">
-                <Link to={`/Item/${item.id}`}>
-                  <img src={item.images[0]} alt="" />
-                </Link>
+        {Products &&
+          Products.map((item) => {
+            return (
+              <div key={item.id}>
+                <div className="imgPar">
+                  <Link to={`/Item/${item.id}`}>
+                    <img src={item.images[0]} alt="" />
+                  </Link>
 
-                <AddCartBtn
-                  onClick={() =>
-                    cartData.find((cartitem) => item.id === cartitem.id)
-                      ? null
-                      : addCart(item.id)
-                  }
-                  className="cartBtn"
-                >
-                  {cartData.find((cartitem) => item?.id === cartitem.id) ? (
-                    <span className=" AnimatedCartBtn">
-                      <FaCheck />
-                    </span>
-                  ) : (
-                    <p>
-                      <MdOutlineShoppingCart /> Add To Cart
-                    </p>
-                  )}
-                </AddCartBtn>
-              </div>
-
-              <div className="description">
-                <p className="title">{item.title}</p>
-                <p className="price">
-                  $ <span>{Math.round(item.price)}</span>
-                </p>
-
-                <div className="starsParent">
-                  {starsArr.map((star, index) => {
-                    return (
-                      <span
-                        key={index}
-                        className={index < item.rating ? "yellow" : "stars"}
-                      >
-                        {star}
+                  <AddCartBtn
+                    onClick={() =>
+                      cartData.find((cartitem) => item.id === cartitem.id)
+                        ? null
+                        : addCart(item.id)
+                    }
+                    className="cartBtn"
+                  >
+                    {cartData.find((cartitem) => item?.id === cartitem.id) ? (
+                      <span className=" AnimatedCartBtn">
+                        <FaCheck />
                       </span>
-                    );
-                  })}
+                    ) : (
+                      <p>
+                        <MdOutlineShoppingCart /> Add To Cart
+                      </p>
+                    )}
+                  </AddCartBtn>
+                </div>
+
+                <div className="description">
+                  <p className="title">{item.title}</p>
+                  <p className="price">
+                    $ <span>{Math.round(item.price)}</span>
+                  </p>
+
+                  <div className="starsParent">
+                    {starsArr.map((star, index) => {
+                      return (
+                        <span
+                          key={index}
+                          className={index < item.rating ? "yellow" : "stars"}
+                        >
+                          {star}
+                        </span>
+                      );
+                    })}
+                  </div>
                 </div>
               </div>
-            </div>
-          );
-        })}
+            );
+          })}
       </CategoryParent>
     </>
   );
 }
+
+
+const FilterError = styled.h2`
+   color: red;
+   text-align: center;
+   font-size: 35px;
+   font-family: "Poppins", sans-serif;
+   font-weight: 500;
+`;
 
 const CategoryParent = styled.div`
   display: grid;
