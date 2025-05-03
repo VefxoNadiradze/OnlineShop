@@ -37,8 +37,7 @@ export default function Products() {
   const FilterProduct = (event: string) => {
     let filteredProducts = products.filter(
       (item) =>
-        item.title.toLowerCase().includes(event.toLowerCase()) ||
-        item.category.toLowerCase().includes(event.toLowerCase()) && item.category === category,
+        item.title.toLowerCase().includes(event.toLowerCase()) && item.category === category 
 
     );
     setProduct(filteredProducts);
