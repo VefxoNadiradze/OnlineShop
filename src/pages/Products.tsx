@@ -7,6 +7,7 @@ import styled from "styled-components";
 import { MdOutlineShoppingCart } from "react-icons/md";
 import { addToCart } from "../redux/Cart";
 import { FaCheck, FaStar } from "react-icons/fa";
+import FilterComponent from "../components/FilterComponent";
 
 export default function Products() {
   const { category } = useParams();
@@ -28,58 +29,62 @@ export default function Products() {
     item && dispatch(addToCart(item));
   };
   return (
-    <CategoryParent>
-      {CategoryItems.map((item) => {
-        return (
-          <div key={item.id}>
-            <div className="imgPar">
-              <Link to={`/Item/${item.id}`}>
-                <img src={item.images[0]} alt="" />
-              </Link>
+    <>
+      <FilterComponent />
 
-              <AddCartBtn
-                onClick={() =>
-                  cartData.find((cartitem) => item.id === cartitem.id)
-                    ? null
-                    : addCart(item.id)
-                }
-                className="cartBtn"
-              >
-                {cartData.find((cartitem) => item?.id === cartitem.id) ? (
-                  <span className=" AnimatedCartBtn">
-                    <FaCheck />
-                  </span>
-                ) : (
-                  <p>
-                    <MdOutlineShoppingCart /> Add To Cart
-                  </p>
-                )}
-              </AddCartBtn>
-            </div>
+      <CategoryParent>
+        {CategoryItems.map((item) => {
+          return (
+            <div key={item.id}>
+              <div className="imgPar">
+                <Link to={`/Item/${item.id}`}>
+                  <img src={item.images[0]} alt="" />
+                </Link>
 
-            <div className="description">
-              <p className="title">{item.title}</p>
-              <p className="price">
-                $ <span>{Math.round(item.price)}</span>
-              </p>
-
-              <div className="starsParent">
-                {starsArr.map((star, index) => {
-                  return (
-                    <span
-                      key={index}
-                      className={index < item.rating ? "yellow" : "stars"}
-                    >
-                      {star}
+                <AddCartBtn
+                  onClick={() =>
+                    cartData.find((cartitem) => item.id === cartitem.id)
+                      ? null
+                      : addCart(item.id)
+                  }
+                  className="cartBtn"
+                >
+                  {cartData.find((cartitem) => item?.id === cartitem.id) ? (
+                    <span className=" AnimatedCartBtn">
+                      <FaCheck />
                     </span>
-                  );
-                })}
+                  ) : (
+                    <p>
+                      <MdOutlineShoppingCart /> Add To Cart
+                    </p>
+                  )}
+                </AddCartBtn>
+              </div>
+
+              <div className="description">
+                <p className="title">{item.title}</p>
+                <p className="price">
+                  $ <span>{Math.round(item.price)}</span>
+                </p>
+
+                <div className="starsParent">
+                  {starsArr.map((star, index) => {
+                    return (
+                      <span
+                        key={index}
+                        className={index < item.rating ? "yellow" : "stars"}
+                      >
+                        {star}
+                      </span>
+                    );
+                  })}
+                </div>
               </div>
             </div>
-          </div>
-        );
-      })}
-    </CategoryParent>
+          );
+        })}
+      </CategoryParent>
+    </>
   );
 }
 
