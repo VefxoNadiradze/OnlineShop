@@ -14,6 +14,7 @@ export default function Products() {
   const { products } = useSelector((state: RootState) => state.data);
   const dispatch = useDispatch<AppDispatch>();
   const [Products, setProduct] = useState<Product[]>();
+
   useEffect(() => {
     dispatch(fetchProducts());
   }, [dispatch]);
@@ -35,19 +36,38 @@ export default function Products() {
   };
 
   const FilterProduct = (event: string) => {
+    console.log(event);
+
     let filteredProducts = products.filter(
       (item) =>
-        item.title.toLowerCase().includes(event.toLowerCase()) && item.category === category 
-
+        item.title.toLowerCase().includes(event.toLowerCase()) &&
+        item.category === category,
     );
     setProduct(filteredProducts);
   };
 
-  console.log(Products)
+  const FilterPrice = (event: { min: string; max: string }) => {
+    let filterProducts = products.filter(
+      (item) =>
+        item.price >= Number(event.min) &&
+        item.price <= Number(event.max) &&
+        item.category === category,
+    );
+    setProduct(filterProducts);
+
+ 
+    if (filterProducts.length < 1) {
+      const filteredProducts = products.filter(
+        (item) => item.category === category,
+      );
+      setProduct(filteredProducts);
+    }
+  };
+
   return (
     <>
-      <FilterComponent filterFoo={FilterProduct} />
-       {Products?.length === 0 && <FilterError> No Products Found</FilterError>}
+      <FilterComponent filterPrice={FilterPrice} filterFoo={FilterProduct} />
+      {Products?.length === 0 && <FilterError> No Products Found</FilterError>}
       <CategoryParent>
         {Products &&
           Products.map((item) => {
@@ -105,13 +125,12 @@ export default function Products() {
   );
 }
 
-
 const FilterError = styled.h2`
-   color: red;
-   text-align: center;
-   font-size: 35px;
-   font-family: "Poppins", sans-serif;
-   font-weight: 500;
+  color: red;
+  text-align: center;
+  font-size: 35px;
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
 `;
 
 const CategoryParent = styled.div`
