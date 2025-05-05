@@ -131,6 +131,7 @@ const FilterError = styled.h2`
   font-size: 35px;
   font-family: "Poppins", sans-serif;
   font-weight: 500;
+  margin-top: 110px;
 `;
 
 const CategoryParent = styled.div`
