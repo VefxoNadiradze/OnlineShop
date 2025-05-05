@@ -50,7 +50,7 @@ export default function Products() {
     let filterProducts = products.filter(
       (item) =>
         item.price >= Number(event.min) &&
-        item.price <= Number(event.max) &&
+        item.price <= Number(event.max) && 
         item.category === category,
     );
     setProduct(filterProducts);

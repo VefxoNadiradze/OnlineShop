@@ -60,6 +60,11 @@ const FilterParent = styled.div`
   margin-top: 20px;
   gap: 20px;
 
+  @media screen and (max-width: 700px){
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
   .filterInput {
     width: 250px;
     display: flex;
