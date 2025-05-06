@@ -14,6 +14,8 @@ export default function Products() {
   const { products } = useSelector((state: RootState) => state.data);
   const dispatch = useDispatch<AppDispatch>();
   const [Products, setProduct] = useState<Product[]>();
+  const [searchText, setSearchText] = useState("");
+  const [priceRange, setPriceRange] = useState({ min: "", max: "" });
 
   useEffect(() => {
     dispatch(fetchProducts());
@@ -35,33 +37,32 @@ export default function Products() {
     item && dispatch(addToCart(item));
   };
 
-  const FilterProduct = (event: string) => {
-    console.log(event);
+  const applyFilters = (
+    search: string,
+    price: { min: string; max: string },
+  ) => {
+    const filtered = products.filter((item) => {
+      const matchCategory = item.category === category;
+      const matchTitle = item.title
+        .toLowerCase()
+        .includes(search.toLowerCase());
+      const matchPrice =
+        (price.min === "" || item.price >= Number(price.min)) &&
+        (price.max === "" || item.price <= Number(price.max));
 
-    let filteredProducts = products.filter(
-      (item) =>
-        item.title.toLowerCase().includes(event.toLowerCase()) &&
-        item.category === category,
-    );
-    setProduct(filteredProducts);
+      return matchCategory && matchTitle && matchPrice;
+    });
+
+    setProduct(filtered);
   };
 
-  const FilterPrice = (event: { min: string; max: string }) => {
-    let filterProducts = products.filter(
-      (item) =>
-        item.price >= Number(event.min) &&
-        item.price <= Number(event.max) && 
-        item.category === category,
-    );
-    setProduct(filterProducts);
-
- 
-    if (filterProducts.length < 1) {
-      const filteredProducts = products.filter(
-        (item) => item.category === category,
-      );
-      setProduct(filteredProducts);
-    }
+  const FilterProduct = (value: string) => {
+    setSearchText(value);
+    applyFilters(value, priceRange);
+  };
+  const FilterPrice = (value: { min: string; max: string }) => {
+    setPriceRange(value);
+    applyFilters(searchText, value);
   };
 
   return (
