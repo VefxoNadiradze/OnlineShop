@@ -37,6 +37,8 @@ export default function Products() {
     item && dispatch(addToCart(item));
   };
 
+
+
   const applyFilters = (
     search: string,
     price: { min: string; max: string },
@@ -65,9 +67,23 @@ export default function Products() {
     applyFilters(searchText, value);
   };
 
+  const SortProducts = (value: string) => {
+    let sortedProducts = [...Products];
+    if (value === "High to Low") {
+      sortedProducts.sort((a, b) => b.price - a.price);
+    } else if (value === "Low to High") {
+      sortedProducts.sort((a, b) => a.price - b.price);
+    } else if (value === "A-Z") {
+      sortedProducts.sort((a, b) => a.title.localeCompare(b.title));
+    } else if (value === "Z-A") {
+      sortedProducts.sort((a, b) => b.title.localeCompare(a.title));
+    }
+    setProduct(sortedProducts);
+
+  }
   return (
     <>
-      <FilterComponent filterPrice={FilterPrice} filterFoo={FilterProduct} />
+      <FilterComponent sortedProducts={SortProducts} filterPrice={FilterPrice} filterFoo={FilterProduct} />
       {Products?.length === 0 && <FilterError> No Products Found</FilterError>}
       <CategoryParent>
         {Products &&

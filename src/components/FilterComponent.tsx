@@ -4,11 +4,13 @@ import { styled } from "styled-components";
 interface FilterComponentProps {
   filterFoo: (value: string) => void;
   filterPrice: (value: { min: string; max: string }) => void;
+  sortedProducts: (value: string) => void;
 }
 
 export default function FilterComponent({
   filterFoo,
   filterPrice,
+  sortedProducts
 }: FilterComponentProps) {
   const [minPrice, setMinPrice] = useState<string>("");
   const [maxPrice, setMaxPrice] = useState<string>("");
@@ -50,6 +52,13 @@ export default function FilterComponent({
           min={0}
         />
       </div>
+
+      <select onChange={(e) => sortedProducts(e.target.value)}>
+        <option value="High to Low">High to Low</option>
+        <option value="Low to High">Low to High</option>
+        <option value="A-Z">A-Z</option>
+        <option value="Z-A">Z-A</option>
+      </select>
     </FilterParent>
   );
 }
@@ -70,7 +79,6 @@ const FilterParent = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 20px;
     input {
       width: 100%;
       padding: 10px;
@@ -92,7 +100,6 @@ const FilterParent = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 20px;
     gap: 10px;
     input {
       width: 100%;
