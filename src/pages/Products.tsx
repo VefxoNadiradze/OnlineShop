@@ -68,17 +68,19 @@ export default function Products() {
   };
 
   const SortProducts = (value: string) => {
-    let sortedProducts = [...Products];
-    if (value === "High to Low") {
-      sortedProducts.sort((a, b) => b.price - a.price);
-    } else if (value === "Low to High") {
-      sortedProducts.sort((a, b) => a.price - b.price);
-    } else if (value === "A-Z") {
-      sortedProducts.sort((a, b) => a.title.localeCompare(b.title));
-    } else if (value === "Z-A") {
-      sortedProducts.sort((a, b) => b.title.localeCompare(a.title));
-    }
-    setProduct(sortedProducts);
+     products.sort((a, b) => {
+      if (value === "High to Low") {
+        return b.price - a.price;
+      } else if (value === "Low to High") {
+        return a.price - b.price;
+      } else if (value === "A-Z") {
+        return a.title.localeCompare(b.title);
+      } else if (value === "Z-A") {
+        return b.title.localeCompare(a.title);
+      }
+      return 0;
+    });
+    setProduct([...products]);
 
   }
   return (
